@@ -1,0 +1,389 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;700&display=swap');
+
+/* General box-sizing rule to include padding and borders in the element's total width and height */
+* {
+    box-sizing: border-box;
+}
+
+/* Defining primary and secondary colors using CSS variables */
+:root {
+    --primary-color: #68838f;
+    --secondary-color: #1f4f6c;
+    --accent-color: #3a7092; /* New color for the slider */
+}
+
+/* General styling for the body element, including background color and font */
+body {
+    background-color: var(--primary-color);
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+}
+
+/* Styling the header: centering content and applying background color */
+header {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers all elements horizontally inside the header */
+    justify-content: center;
+    background-color: var(--secondary-color);
+    position: relative; /* Needed for positioning the autocomplete container */
+}
+
+/* Styling the main title (h1) */
+h1 {
+    color: white;
+    margin-bottom: 1rem;
+    font-size: 2rem;
+}
+
+/* Year Range Container */
+.year-range-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px;
+}
+
+/* Range Input Styling */
+#year-range {
+    -webkit-appearance: none; /* Removes default styling in Chrome */
+    appearance: none; /* Removes default styling in other browsers */
+    width: 60%; /* Adjusts width of the slider */
+    height: 8px; /* Height of the slider */
+    background: var(--accent-color); /* Background color of the slider */
+    outline: none; /* Removes outline */
+    border-radius: 5px; /* Rounded corners */
+    margin-right: 10px; /* Space between the slider and the year display */
+    cursor: pointer; /* Changes cursor to pointer when hovering */
+}
+
+/* Slider thumb styling */
+#year-range::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Removes default thumb styling */
+    appearance: none; /* Removes default thumb styling */
+    width: 20px; /* Width of the thumb */
+    height: 20px; /* Height of the thumb */
+    background: white; /* Color of the thumb */
+    border: 2px solid var(--accent-color); /* Border around the thumb */
+    border-radius: 50%; /* Makes the thumb round */
+    cursor: pointer; /* Cursor on hover */
+}
+
+#year-range::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: white;
+    border: 2px solid var(--accent-color);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* Year Display */
+#year-value {
+    font-size: 1.2rem;
+    color: white;
+}
+
+/* Container for centering the search bar */
+.search-container {
+    display: flex;
+    justify-content: center; /* Centers the search bar horizontally */
+    width: 100%; /* Spans the full width of the page */
+    margin: 1rem 0; /* Adds some vertical spacing */
+}
+
+/* Styling the search bar */
+.search {
+    background-color: transparent;
+    border: 2px solid var(--primary-color);
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    font-size: 1rem;
+    color: #fff;
+    font-family: inherit;
+    width: 150%; /* Adjust width as needed */
+    max-width: 500px; /* Prevents the search bar from becoming too wide */
+    box-sizing: border-box; /* Includes padding and border in the width calculation */
+    transform: translateX(-18%); /* Moves the search bar to the left */
+}
+
+/* Remove default outline when the search bar is focused and apply background color */
+.search:focus {
+    outline: 0;
+    background-color: var(--primary-color);
+}
+
+/* Additional styles for autocomplete and other elements... */
+
+/* Styling the autocomplete container */
+.autocomplete-container {
+    position: absolute;
+    top: 165px; /* Adjusts the distance from the top to place it below the search bar */
+    left: 50%; /* Centers the autocomplete container horizontally */
+    transform: translateX(-50%); /* Shifts the container to be perfectly centered */
+    background-color: #3a7092; /* Background color for the container */
+    max-height: 130px; /* Limit the height of the autocomplete box */
+    width: 40%; /* Adjust the width to match the search bar */
+    overflow-y: auto; /* Add vertical scrollbar if content exceeds max height */
+    z-index: 10; /* Ensures the container appears above other elements */
+    border-radius: 8px; /* Rounded corners for the container */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect */
+    color: white; /* Text color */
+    font-size: 0.9rem; /* Smaller font size for autocomplete items */
+}
+
+/* Individual suggestion styling */
+.autocomplete-suggestion {
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Separator between suggestions */
+}
+
+/* Hover effect for suggestions */
+.autocomplete-suggestion:hover {
+    background-color: rgba(255, 255, 255, 0.2); /* Highlight background on hover */
+}
+
+/* Close button for the autocomplete (if needed) */
+.autocomplete-close {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    color: white;
+}
+
+/* Main container for movie items */
+main {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Centers the movie items horizontally */
+}
+
+/* Styling individual movie elements */
+.movie {
+    width: 21%; /* Adjusted width to display 4 movies per row */
+    margin: 1rem; /* Adds space between movie cards */
+    border-radius: 3px;
+    box-shadow: 0.2px 4px 5px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow effect */
+    background-color: var(--secondary-color);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Ensures movie images are 100% width and keeps the height fixed */
+.movie img {
+    width: 100%;
+    height: 350px; /* Fixed height for all movie images */
+    object-fit: cover; /* Ensures images maintain their aspect ratio */
+}
+
+/* Styling for the information section of each movie */
+.movie-info {
+    color: #eee;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Distributes space evenly between movie title and rating */
+    padding: 0.5rem 1rem 1rem;
+    letter-spacing: 0.5px;
+}
+
+/* Styling for movie title inside the info section */
+.movie-info h3 {
+    margin-top: 0;
+}
+
+/* Styling for the rating badge */
+.movie-info span {
+    background-color: var(--primary-color);
+    padding: 0.25rem 0.5rem;
+    border-radius: 3px;
+    font-weight: bold;
+}
+
+/* Conditional styling for different rating colors */
+.movie-info span.green {
+    color: lightgreen;
+}
+.movie-info span.orange {
+    color: rgb(4, 21, 56);
+}
+.movie-info span.red {
+    color: red;
+}
+
+/* Hidden movie overview section (only appears on hover) */
+.overview {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #fff;
+    padding: 0.5rem 1rem; /* Smaller padding to adjust spacing */
+    max-height: 300px; /* Set a maximum height */
+    overflow-y: auto; /* Add vertical scroll if content overflows */
+    transform: translateY(101%);
+    transition: transform 0.3s ease-in;
+    font-size: 14px; /* Smaller font size */
+    line-height: 1.5; /* Improved line spacing for readability */
+}
+
+.overview h3 {
+    margin: 0.5rem 0; /* Adjust the spacing around the "Overview" title */
+}
+
+.movie:hover .overview {
+    transform: translateY(0);
+}
+
+/* Tag container for filtering or sorting movies */
+#tags {
+    width: 80%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin: 10px auto;
+}
+
+/* Styling for individual category buttons */
+.category {
+    background-color: var(--secondary-color);
+    padding: 10px 20px;
+    border-radius: 20px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Add transition for smooth color change */
+    display: inline-flex; /* Display as inline-flex for better control */
+    align-items: center; /* Center content vertically */
+}
+
+/* Hide the actual radio button */
+.category input {
+    display: none;
+}
+
+/* Style the category button when hovering over it */
+.category:hover {
+    background-color: rgb(8, 45, 71); /* Same hover color as the "Know More" button */
+}
+
+/* Style the category button when it's selected */
+.category.selected {
+    background-color: rgb(8, 45, 71); /* Keep the same color as the hover state when selected */
+    color: white;
+    font-weight: bold;
+    border: 2px solid white; /* Add a border to highlight the selected button */
+}
+
+/* Highlighted tag styling for active tags */
+.tag.highlight {
+    background-color: red;
+}
+
+/* Styling for text when no results are found */
+.no-results {
+    color: white;
+}
+
+/* Pagination container */
+.pagination {
+    display: flex;
+    margin: 10px 30px;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+/* Styling for pagination buttons (Next and Prev) */
+.page {
+    background-color: transparent;
+    padding: 10px 20px;
+    border-radius: 20px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 5px; /* Adds spacing between buttons */
+    text-align: center;
+}
+
+/* Style the button when it's selected or hovered */
+.page:hover,
+.page.selected {
+    background-color: rgb(8, 45, 71); /* Darker color on hover or when selected */
+}
+
+/* Disabled pagination style */
+.page.disabled {
+    background-color: transparent;
+    color: rgb(172, 167, 167);
+    cursor: not-allowed;
+}
+
+
+/* Styling for the current page number */
+.current {
+    padding: 10px 20px;
+    border-radius: 50%;
+    border: 5px solid rgb(26, 72, 126);
+    font-size: 20px;
+    font-weight: 600;
+}
+
+/* Styling the "Know More" button */
+.know-more {
+    background-color: rgb(73, 146, 170);
+    color: white;
+    font-size: 15px; /* Change the font size */
+    font-weight: bold;
+    border: 0;
+    border-radius: 10px;
+    padding: 5px 8px; /* Increase the padding to make the button larger */
+    margin-top: 5px; /* Adds space between the button and the content above */
+    margin-left: -5px; /* Move the button slightly to the left */
+    display: inline-block;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none; /* Remove underline */
+    transition: background-color 0.3s ease; /* Add a transition for hover effect */
+}
+
+/* Hover effect for the "Know More" button */
+.know-more:hover {
+    background-color: rgb(8, 45, 71); /* Change color on hover */
+}
+
+/* Media query for screens smaller than 1024px */
+@media (max-width: 1024px) {
+    .movie {
+        width: 45%; /* Display 2 movies per row on medium-sized screens */
+    }
+}
+
+/* Media query for screens smaller than 768px */
+@media (max-width: 768px) {
+    .movie {
+        width: 48%; /* Display 2 movies per row on smaller screens */
+    }
+}
+
+/* Media query for screens smaller than 480px */
+@media (max-width: 480px) {
+    .movie {
+        width: 98%; /* Display 1 movie per row on very small screens (phones) */
+    }
+}
+
+/* Container for category buttons */
+.categories-container {
+    display: flex;
+    flex-wrap: wrap; /* Allows items to wrap to multiple lines */
+    justify-content: center;
+    gap: 10px; /* Adds space between category buttons */
+    margin-top: 20px;
+}
