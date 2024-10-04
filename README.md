@@ -1,10 +1,12 @@
 
-
+![Project Screenshot](images/PFS%20(1).png)
 ---
 
 # 🎬 The Movie Database - Full Stack Project
 
 A comprehensive full-stack web application for movie enthusiasts to browse, search, and explore a vast collection of movies and actors. This project leverages modern front-end and back-end technologies to provide a dynamic and user-friendly experience.
+
+![Project Screenshot](PFS%20(1).png)
 
 ## 📋 Table of Contents
 1. [Features](#features)
@@ -17,6 +19,8 @@ A comprehensive full-stack web application for movie enthusiasts to browse, sear
 
 ## ✨ Features
 - **User Registration & Authentication**: Register, log in, and log out as a user for a personalized experience, including creating watchlists and saving favorite movies.
+    - ![Sign-Up Screenshot](PFS%20(2).png)
+    - ![Login Screenshot](PFS%20(3).png)
 - **Search with Autocomplete**: Quickly search for movies by title with an autocomplete feature to make finding movies easier and faster.
 - **"Know More" for Detailed Information**: View additional information about each movie, including cast, crew, genres, and ratings, by clicking the "Know More" button.
 - **Pagination for Easy Browsing**: Easily navigate through multiple pages of movies using forward and backward buttons.
@@ -94,3 +98,5 @@ Contributions are welcome! Feel free to submit issues, fork the repository, and 
 This project is licensed under the MIT License.
 
 ---
+
+Make sure the images are located in the same directory as the README file or update the paths as needed if they are in a different directory.
