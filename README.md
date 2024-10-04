@@ -1,5 +1,4 @@
 
-![Project Screenshot](images/PFS%20(1).png)
 ---
 
 # 🎬 The Movie Database - Full Stack Project
@@ -99,4 +98,3 @@ This project is licensed under the MIT License.
 
 ---
 
-Make sure the images are located in the same directory as the README file or update the paths as needed if they are in a different directory.
