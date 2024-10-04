@@ -18,6 +18,11 @@ A comprehensive full-stack web application for movie enthusiasts to browse, sear
 
 ## ✨ Features
 - **User Registration & Authentication**: Register, log in, and log out as a user for a personalized experience, including creating watchlists and saving favorite movies.
+ <p align="center">
+  <img src="images/PFS%20(2).png" alt="Sign-Up Screenshot" width="45%" style="border-radius: 10px;"/>
+  <img src="images/PFS%20(3).png" alt="Login Screenshot" width="45%" style="border-radius: 10px;"/>
+</p>
+
     - ![Sign-Up Screenshot](PFS%20(2).png)
     - ![Login Screenshot](PFS%20(3).png)
 - **Search with Autocomplete**: Quickly search for movies by title with an autocomplete feature to make finding movies easier and faster.
