@@ -9,6 +9,13 @@ const autocompleteContainer = document.createElement('div');
 const currentPageDisplay = document.getElementById('current');
 const prevPageButton = document.getElementById('prev');
 const nextPageButton = document.getElementById('next');
+const signupModal = document.getElementById('signup-modal');
+const loginModal = document.getElementById('login-modal'); // Add this line to handle login modal
+const signupForm = document.getElementById('signup-form');
+const closeSignupModal = document.getElementById('close-signup-modal');
+const closeLoginModal = document.getElementById('close-login-modal'); // Add this line to close login modal
+const signupBtn = document.getElementById('signup-btn'); // Add this if you have a 'Join' button in the header
+const loginForm = document.getElementById('login-form'); // Add this line to handle login form
 
 let currentPage = 1;
 let currentUrl = '';
@@ -17,6 +24,143 @@ let isNavigating = false;
 
 autocompleteContainer.classList.add('autocomplete-container');
 search.parentNode.appendChild(autocompleteContainer);
+
+// Function to show flash messages
+function showFlashMessage(message, category) {
+    const flashWrapper = document.getElementById('flash-wrapper');
+    const flashMessage = document.getElementById('flash-messages');
+
+    // Set the message and category
+    flashMessage.textContent = message;
+    flashMessage.className = `flash-message ${category}`; // Add class based on category
+
+    // Show the flash message
+    flashWrapper.style.display = 'flex';
+
+    // Remove flash message after 3 seconds
+    setTimeout(() => {
+        flashWrapper.style.display = 'none';
+    }, 1500);
+}
+
+
+// Function to handle login/logout button display
+function updateAuthButtons() {
+    const authContainer = document.getElementById('auth-container');
+    fetch('/is_logged_in', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(response => response.json())
+    .then(data => {
+        if (data.is_logged_in) {
+            // If user is logged in, show username and logout button
+            authContainer.innerHTML = `
+                <span id="user-name" class="auth-btn green-btn">${data.username}</span>
+                <button id="logout-btn" class="auth-btn">Logout</button>
+            `;
+
+            // Add event listener for logout
+            document.getElementById('logout-btn').addEventListener('click', function() {
+                fetch('/logout', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }).then(response => {
+                    if (response.ok) {
+                        showFlashMessage('Logout successful', 'success');
+                        updateAuthButtons();
+                    }
+                });
+            });
+
+        } else {
+            // If user is not logged in, show login and join buttons
+            authContainer.innerHTML = `
+                <button id="login-btn" class="auth-btn">Login</button>
+                <button id="signup-btn" class="auth-btn">Join</button>
+            `;
+
+            // Add event listeners for login/signup modals
+            document.getElementById('login-btn').addEventListener('click', function() {
+                document.getElementById('login-modal').style.display = 'block';
+            });
+            document.getElementById('signup-btn').addEventListener('click', function() {
+                document.getElementById('signup-modal').style.display = 'block';
+            });
+        }
+    });
+}
+
+
+// Initialize the auth buttons on page load
+document.addEventListener('DOMContentLoaded', updateAuthButtons);
+
+// Handle signup form submission
+signupForm.addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    const username = document.getElementById('signup-username').value;
+    const email = document.getElementById('signup-email').value;
+    const password = document.getElementById('signup-password').value;
+    const passwordConfirm = document.getElementById('signup-password-confirm').value;
+
+    if (password !== passwordConfirm) {
+        showFlashMessage('Passwords do not match', 'error');
+        return;
+    }
+
+    fetch('/register', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            username: username,
+            email: email,
+            password: password
+        })
+    }).then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showFlashMessage('Registration successful', 'success');
+            signupModal.style.display = 'none';  // Close the signup modal
+            updateAuthButtons();
+        } else {
+            showFlashMessage(data.message, 'error');
+        }
+    });
+});
+
+// Handle login form submission
+
+loginForm.addEventListener('submit', function (event) {
+    event.preventDefault();
+    const username = document.getElementById('login-username').value;
+    const password = document.getElementById('login-password').value;
+
+    fetch('/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            username: username,
+            password: password
+        })
+    }).then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showFlashMessage('Login successful', 'success');
+            updateAuthButtons();
+            loginModal.style.display = 'none';
+        } else {
+            showFlashMessage(data.error, 'error');
+        }
+    });
+});
 
 // Fetch genres and create radio buttons for each category
 function getGenres() {
@@ -245,6 +389,95 @@ search.addEventListener('input', (e) => {
     fetchAutocomplete(e.target.value);
 });
 
-// Fetch genres and popular movies when the page loads
+// Event listeners for opening and closing the signup modal
+signupBtn.addEventListener('click', () => {
+    signupModal.style.display = 'block';
+});
+
+closeSignupModal.addEventListener('click', () => {
+    signupModal.style.display = 'none';
+});
+
+window.addEventListener('click', (event) => {
+    if (event.target == signupModal) {
+        signupModal.style.display = 'none';
+    }
+});
+
+// Handle the sign-up form submission
+signupForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const username = document.getElementById('signup-username').value.trim();
+    const email = document.getElementById('signup-email').value.trim();
+    const password = document.getElementById('signup-password').value;
+    const passwordConfirm = document.getElementById('signup-password-confirm').value;
+
+    // Validate the input fields
+    if (!username || !email || !password) {
+        alert("Please fill out all fields.");
+        return;
+    }
+
+    if (!validateEmail(email)) {
+        alert("Please enter a valid email address.");
+        return;
+    }
+
+    if (password !== passwordConfirm) {
+        alert("Passwords do not match.");
+        return;
+    }
+
+    if (!validatePassword(password)) {
+        alert("Password does not meet the required criteria.");
+        return;
+    }
+
+    // Send data to backend for user creation
+    registerUser(username, email, password);
+});
+
+// Email validation function
+function validateEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+}
+
+// Password validation function
+function validatePassword(password) {
+    // Add your password criteria here (e.g., length, uppercase, etc.)
+    return password.length >= 8; // Example criteria: at least 8 characters
+}
+
+// Send data to the backend for registration
+function registerUser(username, email, password) {
+    fetch(`${BASE_URL}/register`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ username, email, password })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.success) {
+            alert('User registered successfully! A confirmation email has been sent.');
+            signupModal.style.display = 'none'; // Close the signup modal
+        } else {
+            alert(`Error: ${data.message}`);
+        }
+    })
+    .catch(err => {
+        console.error('Error registering user:', err);
+        alert('Failed to register user.');
+    });
+}
+
+
+
+
+// Autocomplete and genre initialization
 getGenres();
 getMovies(`${BASE_URL}/discover`);
+
+// Existing functions... continue with any other features

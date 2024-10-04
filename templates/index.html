@@ -8,6 +8,12 @@
 </head>
 <body>
     <header>
+        <!-- User Authentication Section -->
+        <div id="auth-container" class="auth-container">
+            <button id="login-btn" class="auth-btn">Login</button>
+            <button id="signup-btn" class="auth-btn">Join</button>
+        </div>
+
         <h1>Azrai's TMDB API Full Stack Project</h1>
 
         <!-- Container for centering the search bar -->
@@ -17,11 +23,9 @@
             </form>
         </div>
 
-
-        
         <!-- Container for autocomplete -->
         <div id="autocomplete-container" class="autocomplete-container"></div>
-    
+
         <!-- Container for category radio buttons -->
         <div id="categories-container" class="categories-container"></div>
     </header>
@@ -33,7 +37,68 @@
         <div class="current" id="current">1</div>
         <div class="page" id="next">Next Page</div>
     </div>
-    
+
+    <!-- Flash messages (Success or Error) -->
+    <div id="flash-wrapper" style="display:none;">
+        <div id="flash-messages">
+            Logout successful
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="login-modal" class="modal">
+        <div class="modal-content">
+            <span id="close-login-modal" class="close">&times;</span>
+            <h2>Log in to your account</h2>
+            <form id="login-form">
+                <div style="position: relative;">
+                    <input type="text" id="login-username" name="username" placeholder="User name" required>
+                </div>
+
+                <div style="position: relative;">
+                    <input type="password" id="login-password" name="password" placeholder="Password" required>
+                </div>
+
+                <button type="submit">Log In</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Sign-Up (Join) Modal -->
+    <div id="signup-modal" class="modal">
+        <div class="modal-content">
+            <span id="close-signup-modal" class="close">&times;</span>
+            <h2>Sign up for an account</h2>
+            <form id="signup-form">
+                <div style="position: relative;">
+                    <input type="text" id="signup-username" name="username" placeholder="User name" required>
+                </div>
+
+                <div style="position: relative;">
+                    <input type="email" id="signup-email" name="email" placeholder="Email" required>
+                </div>
+
+                <div style="position: relative;">
+                    <input type="password" id="signup-password" name="password" placeholder="Password" required>
+                </div>
+
+                <div style="position: relative;">
+                    <input type="password" id="signup-password-confirm" name="password-confirm" placeholder="Retype password" required>
+                </div>
+
+                <div class="validation">
+                    <span>• Lowercase & uppercase</span>
+                    <span>• Number (0-9)</span>
+                    <span>• Special Characters (#@!$%^&*)</span>
+                    <span>• At least 8 characters</span>
+                </div>
+                
+                <button type="submit">Sign Up</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Script for handling the form submissions and showing flash messages -->
     <script src="/static/app.js"></script>
 </body>
 </html>
