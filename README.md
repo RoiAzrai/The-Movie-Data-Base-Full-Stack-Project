@@ -21,6 +21,7 @@ A comprehensive full-stack web application for movie enthusiasts to browse, sear
     - ![Sign-Up Screenshot](PFS%20(2).png)
     - ![Login Screenshot](PFS%20(3).png)
 - **Search with Autocomplete**: Quickly search for movies by title with an autocomplete feature to make finding movies easier and faster.
+    - ![Autocomplete Feature](PFS%20(4).png)
 - **"Know More" for Detailed Information**: View additional information about each movie, including cast, crew, genres, and ratings, by clicking the "Know More" button.
 - **Pagination for Easy Browsing**: Easily navigate through multiple pages of movies using forward and backward buttons.
 - **Movie Overview on Hover**: Get a quick summary of the movie's plot by simply hovering over the movie poster, enhancing the browsing experience.
