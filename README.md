@@ -19,17 +19,18 @@ A comprehensive full-stack web application for movie enthusiasts to browse, sear
   - ![Login Screenshot](images/FS%20(5).png)
 - **Logged-in Home Page**: View the main page with a logged-in user, showcasing personalized features.
   - ![Logged-in Home Page Screenshot](images/FS%20(1).png)
-- **Favorites Page**: Browse through your favorite movies, with an easy-to-use interface for adding or removing favorites.
-  - ![Favorites Page Screenshot](images/FS%20(2).png)
-- **Search with Autocomplete**: Quickly search for movies by title with an autocomplete feature to make finding movies easier and faster.
-  - ![Autocomplete Feature](images/FS%20(8).png)
-- **"Know More" for Detailed Information**: View additional information about each movie, including cast, crew, genres, and ratings, by clicking the "Know More" button.
-- **Pagination for Easy Browsing**: Easily navigate through multiple pages of movies using forward and backward buttons.
 - **Add/Remove Favorite Movies**: Easily add or remove movies from your favorites.
   <div style="display: flex; gap: 10px;">
     <img src="images/FS%20(6).png" alt="Movie Before Adding to Favorites" width="300">
     <img src="images/FS%20(7).png" alt="Movie After Adding to Favorites" width="300">
   </div>
+- **Favorites Page**: Browse through your favorite movies, with an easy-to-use interface for adding or removing favorites.
+  - ![Favorites Page Screenshot](images/FS%20(2).png)
+- **Search with Autocomplete**: Quickly search for movies by title with an autocomplete feature to make finding movies easier and faster.
+  - ![Autocomplete Feature](images/FS%20(8).png)
+- **Pagination for Easy Browsing**: Easily navigate through multiple pages of movies using forward and backward buttons.
+  - ![Pagination Feature](images/FS%20(9).png)
+- **"Know More" for Detailed Information**: View additional information about each movie, including cast, crew, genres, and ratings, by clicking the "Know More" button.
 - **Movie Overview on Hover**: Get a quick summary of the movie's plot by simply hovering over the movie poster, enhancing the browsing experience.
 - **Responsive Design**: Optimized for both desktop and mobile views.
 - **Modern UI**: Clean and intuitive interface to improve user interaction.
