@@ -24,8 +24,10 @@ A comprehensive full-stack web application for movie enthusiasts to browse, sear
 - **"Know More" for Detailed Information**: View additional information about each movie, including cast, crew, genres, and ratings, by clicking the "Know More" button.
 - **Pagination for Easy Browsing**: Easily navigate through multiple pages of movies using forward and backward buttons.
 - **Add/Remove Favorite Movies**: Easily add or remove movies from your favorites.
-  - ![Movie Before Adding to Favorites](images/FS%20(6).png)
-  - ![Movie After Adding to Favorites](images/FS%20(7).png)
+  <div style="display: flex; gap: 10px;">
+    <img src="images/FS%20(6).png" alt="Movie Before Adding to Favorites" width="300">
+    <img src="images/FS%20(7).png" alt="Movie After Adding to Favorites" width="300">
+  </div>
 - **Movie Overview on Hover**: Get a quick summary of the movie's plot by simply hovering over the movie poster, enhancing the browsing experience.
 - **Responsive Design**: Optimized for both desktop and mobile views.
 - **Modern UI**: Clean and intuitive interface to improve user interaction.
