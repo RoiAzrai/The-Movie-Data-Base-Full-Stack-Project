@@ -1,11 +1,8 @@
-
----
-
 # 🎬 The Movie Database - Full Stack Project
 
 A comprehensive full-stack web application for movie enthusiasts to browse, search, and explore a vast collection of movies and actors. This project leverages modern front-end and back-end technologies to provide a dynamic and user-friendly experience.
 
-![Project Screenshot](PFS%20(1).png)
+![Project Screenshot](images/FS%20(1).png)
 
 ## 📋 Table of Contents
 1. [Features](#features)
@@ -18,19 +15,24 @@ A comprehensive full-stack web application for movie enthusiasts to browse, sear
 
 ## ✨ Features
 - **User Registration & Authentication**: Register, log in, and log out as a user for a personalized experience, including creating watchlists and saving favorite movies.
-    - ![Sign-Up Screenshot](PFS%20(2).png)
-    - ![Login Screenshot](PFS%20(3).png)
+  - ![Sign-Up Screenshot](images/FS%20(4).png)
+  - ![Login Screenshot](images/FS%20(5).png)
+- **Favorites Page**: Browse through your favorite movies, with an easy-to-use interface for adding or removing favorites.
+  - ![Favorites Page Screenshot](images/FS%20(2).png)
 - **Search with Autocomplete**: Quickly search for movies by title with an autocomplete feature to make finding movies easier and faster.
-    - ![Autocomplete Feature](PFS%20(4).png)
+  - ![Autocomplete Feature](images/FS%20(3).png)
 - **"Know More" for Detailed Information**: View additional information about each movie, including cast, crew, genres, and ratings, by clicking the "Know More" button.
 - **Pagination for Easy Browsing**: Easily navigate through multiple pages of movies using forward and backward buttons.
+- **Add/Remove Favorite Movies**: Easily add or remove movies from your favorites.
+  - ![Movie Before Adding to Favorites](images/FS%20(6).png)
+  - ![Movie After Adding to Favorites](images/FS%20(7).png)
 - **Movie Overview on Hover**: Get a quick summary of the movie's plot by simply hovering over the movie poster, enhancing the browsing experience.
 - **Responsive Design**: Optimized for both desktop and mobile views.
 - **Modern UI**: Clean and intuitive interface to improve user interaction.
 
 ## 🛠 Tech Stack
-- **Frontend**: React, CSS, HTML
-- **Backend**: Node.js, Express
+- **Frontend**: HTML, CSS, JavaScript
+- **Backend**: Python, Flask
 - **Database**: MongoDB
 - **Authentication**: JSON Web Tokens (JWT)
 - **API**: External API integration (such as The Movie Database API)
@@ -48,44 +50,32 @@ To run the project locally, follow these steps:
 2. **Install server dependencies**:
    ```bash
    cd backend
-   npm install
+   pip install -r requirements.txt
    ```
 
-3. **Install client dependencies**:
-   ```bash
-   cd ../frontend
-   npm install
-   ```
-
-4. **Set up environment variables**:
+3. **Set up environment variables**:
 
    In the `backend` folder, create a `.env` file and add the following:
    ```env
-   PORT=5000
+   FLASK_APP=app.py
    MONGO_URI=your_mongodb_connection_string
    JWT_SECRET=your_jwt_secret
    API_KEY=your_external_api_key
    ```
 
-5. **Run the application**:
+4. **Run the application**:
 
    - Start the backend server:
      ```bash
      cd backend
-     npm start
+     flask run
      ```
 
-   - Start the frontend server:
-     ```bash
-     cd ../frontend
-     npm start
-     ```
-
-6. **Access the app**: Open your browser and go to `http://localhost:3000`.
+5. **Access the app**: Open your browser and go to `http://localhost:5000`.
 
 ## 📂 Project Structure
 Here's a quick overview of the project structure:
-- **/frontend**: Contains all client-side files, including components, hooks, and styling.
+- **/frontend**: Contains all client-side files, including HTML, CSS, and JavaScript for rendering the user interface.
 - **/backend**: Contains server-side files such as routes, models, and middleware for handling API requests and database interactions.
 - **/config**: Configuration files for database and JWT.
 - **/models**: Database models for movies, users, etc.
@@ -98,4 +88,3 @@ Contributions are welcome! Feel free to submit issues, fork the repository, and 
 This project is licensed under the MIT License.
 
 ---
-
