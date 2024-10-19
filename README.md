@@ -2,7 +2,7 @@
 
 A comprehensive full-stack web application for movie enthusiasts to browse, search, and explore a vast collection of movies and actors. This project leverages modern front-end and back-end technologies to provide a dynamic and user-friendly experience.
 
-![Project Screenshot](images/FS%20(1).png)
+![Project Screenshot](images/FS%20(1).png) 
 
 ## 📋 Table of Contents
 1. [Features](#features)
