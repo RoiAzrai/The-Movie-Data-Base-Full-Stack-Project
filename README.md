@@ -2,7 +2,7 @@
 
 A comprehensive full-stack web application for movie enthusiasts to browse, search, and explore a vast collection of movies and actors. This project leverages modern front-end and back-end technologies to provide a dynamic and user-friendly experience.
 
-![Project Screenshot](images/FS%20(1).png) 
+![Project Screenshot](images/FS%20(3).png)
 
 ## 📋 Table of Contents
 1. [Features](#features)
@@ -17,10 +17,12 @@ A comprehensive full-stack web application for movie enthusiasts to browse, sear
 - **User Registration & Authentication**: Register, log in, and log out as a user for a personalized experience, including creating watchlists and saving favorite movies.
   - ![Sign-Up Screenshot](images/FS%20(4).png)
   - ![Login Screenshot](images/FS%20(5).png)
+- **Logged-in Home Page**: View the main page with a logged-in user, showcasing personalized features.
+  - ![Logged-in Home Page Screenshot](images/FS%20(1).png)
 - **Favorites Page**: Browse through your favorite movies, with an easy-to-use interface for adding or removing favorites.
   - ![Favorites Page Screenshot](images/FS%20(2).png)
 - **Search with Autocomplete**: Quickly search for movies by title with an autocomplete feature to make finding movies easier and faster.
-  - ![Autocomplete Feature](images/FS%20(3).png)
+  - ![Autocomplete Feature](images/FS%20(8).png)
 - **"Know More" for Detailed Information**: View additional information about each movie, including cast, crew, genres, and ratings, by clicking the "Know More" button.
 - **Pagination for Easy Browsing**: Easily navigate through multiple pages of movies using forward and backward buttons.
 - **Add/Remove Favorite Movies**: Easily add or remove movies from your favorites.
