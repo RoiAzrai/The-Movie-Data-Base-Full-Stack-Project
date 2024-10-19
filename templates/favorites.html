@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/static/style.css">
+    <title>Favorites</title>
+</head>
+<body>
+    <header>
+        <!-- User Authentication Section -->
+        <div id="auth-container" class="auth-container">
+            <!-- Dropdown menu for logged-in user -->
+            <span id="user-name" class="auth-btn green-btn" style="display: none;">Username</span>
+            <button id="logout-btn" class="auth-btn" style="display: none;">Logout</button>
+        </div>
+
+        <!-- Favorites Title -->
+        <div id="favorites-title-container" style="display: none;">
+            <h1 class="favorites-title">My Favorite Movies</h1>
+        </div>
+
+        
+        <!-- Container for centering the search bar -->
+        <div class="search-container">
+            <input type="text" id="search" class="search" placeholder="Search Favorites">
+        </div>
+    </header>
+    
+    <main id="favorites-main" class="favorites-main-container"></main>
+
+    <!-- Flash messages (Success or Error) -->
+    <div id="flash-wrapper" style="display:none;">
+        <div id="flash-messages"></div>
+    </div>
+
+    <!-- Include JavaScript for handling favorites -->
+    <script src="/static/favorites.js"></script>
+</body>
+</html>

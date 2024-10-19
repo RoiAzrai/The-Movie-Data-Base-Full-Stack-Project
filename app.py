@@ -43,8 +43,6 @@ IMG_URL = 'https://image.tmdb.org/t/p/w500'
 # Initialize Migrate
 migrate = Migrate(app, db)
 
-
-
 # User model for login system
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -60,9 +58,8 @@ class Favorite(db.Model):
     movie_title = db.Column(db.String(255), nullable=False)  # Add movie title
     movie_category = db.Column(db.String(255), nullable=False)  # Add movie category
     movie_year = db.Column(db.Integer, nullable=False)  # Add movie year
+    movie_poster = db.Column(db.String(255), nullable=True)  # Make movie poster URL nullable
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-
-
 
 # Create the database if it does not exist
 with app.app_context():
@@ -97,7 +94,6 @@ def login():
         flash('Invalid username or password.', 'error')
         return jsonify({"error": "Invalid username or password"}), 401
 
-
 # Route to handle user logout
 @app.route('/logout', methods=['POST'])
 @login_required
@@ -113,6 +109,7 @@ def discover_movies():
     url = f'{BASE_URL}/discover/movie?sort_by=popularity.desc&api_key={API_KEY}'
     genre = request.args.get('with_genres')  # Get selected genre from query parameters
     page = request.args.get('page', 1)  # Get page number from query parameters, default to 1
+    print(f"Requested Page: {page}")  # Logging page number
     url += f'&page={page}'  # Add page parameter to the URL
 
     if genre:
@@ -127,6 +124,7 @@ def discover_movies():
     except requests.exceptions.RequestException as e:
         print(f"Error fetching data from TMDB API: {e}")
         return jsonify({"error": "Failed to fetch data from TMDB API"}), 500
+
 
 # Route to search movies by query (with caching)
 @app.route('/search')
@@ -157,36 +155,90 @@ def get_genres():
         print(f"Error fetching genres from TMDB API: {e}")
         return jsonify({"error": "Failed to fetch genres"}), 500
 
+# Route to check if a movie is in user's favorites
+@app.route('/is_favorite/<int:movie_id>', methods=['GET'])
+@login_required
+def is_favorite(movie_id):
+    favorite = Favorite.query.filter_by(movie_id=str(movie_id), user_id=current_user.id).first()
+    if favorite:
+        return jsonify({"is_favorite": True})
+    return jsonify({"is_favorite": False})
+
 # Route to add a movie to favorites
 @app.route('/add_favorite', methods=['POST'])
 @login_required
 def add_favorite():
     data = request.json
     movie_id = data.get('movie_id')
-    movie_title = data.get('movie_title')
-    movie_category = data.get('movie_category')
-    movie_year = data.get('movie_year')
 
-    if movie_id and movie_title and movie_category and movie_year:
-        new_favorite = Favorite(
-            movie_id=movie_id,
-            movie_title=movie_title,
-            movie_category=movie_category,
-            movie_year=movie_year,
-            user_id=current_user.id
-        )
-        db.session.add(new_favorite)
-        db.session.commit()
-        return jsonify({"success": "Movie added to favorites"})
-    return jsonify({"error": "All movie details are required"}), 400
+    # Fetch the movie details from TMDB to get the correct category and year
+    if movie_id:
+        movie_details_url = f"{BASE_URL}/movie/{movie_id}?api_key={API_KEY}"
+        try:
+            response = requests.get(movie_details_url)
+            response.raise_for_status()
+            movie_data = response.json()
+            movie_title = movie_data.get('title', 'Unknown Title')
+            movie_category = movie_data.get('genres', [{'name': 'Unknown Category'}])[0]['name']
+            movie_year = movie_data.get('release_date', '0000')[:4]  # Extract year from release_date
+            movie_poster = movie_data.get('poster_path', '')  # Extract poster path
+            
+            # Check if the movie is already in the user's favorites
+            existing_favorite = Favorite.query.filter_by(movie_id=movie_id, user_id=current_user.id).first()
+            if existing_favorite:
+                return jsonify({"error": "Movie already in favorites"}), 400
+
+            # Add new favorite to the database
+            new_favorite = Favorite(
+                movie_id=movie_id,
+                movie_title=movie_title,
+                movie_category=movie_category,
+                movie_year=int(movie_year),
+                movie_poster=movie_poster,
+                user_id=current_user.id
+            )
+            db.session.add(new_favorite)
+            db.session.commit()
+            return jsonify({"success": "Movie added to favorites"})
+        
+        except requests.exceptions.RequestException as e:
+            print(f"Error fetching movie details from TMDB API: {e}")
+            return jsonify({"error": "Failed to fetch movie details"}), 500
+
+    return jsonify({"error": "Movie ID is required"}), 400
 
 # Route to get user favorites
 @app.route('/favorites')
 @login_required
 def get_favorites():
     user_favorites = Favorite.query.filter_by(user_id=current_user.id).all()
-    favorites_list = [{'movie_id': fav.movie_id, 'movie_title': fav.movie_title, 'movie_category': fav.movie_category, 'movie_year': fav.movie_year} for fav in user_favorites]
+    favorites_list = []
+
+    for fav in user_favorites:
+        movie_details_url = f"{BASE_URL}/movie/{fav.movie_id}?api_key={API_KEY}"
+        try:
+            response = requests.get(movie_details_url)
+            response.raise_for_status()
+            movie_data = response.json()
+            overview = movie_data.get('overview', 'Overview not available')
+
+            favorites_list.append({
+                'movie_id': fav.movie_id,
+                'title': fav.movie_title,
+                'category': fav.movie_category,
+                'year': fav.movie_year,
+                'poster_path': f'{IMG_URL}{fav.movie_poster}',
+                'overview': overview,
+                'vote_average': movie_data.get('vote_average', 'N/A')
+            })
+        except requests.exceptions.RequestException as e:
+            print(f"Error fetching movie details from TMDB API: {e}")
+            return jsonify({"error": "Failed to fetch movie details"}), 500
+
     return jsonify(favorites_list)
+
+
+
 
 # Route for user registration (sign-up)
 @app.route('/register', methods=['POST'])
@@ -219,6 +271,23 @@ def register():
     flash('User registered successfully.', 'success')
     return jsonify({'success': True, 'message': 'User registered successfully.'}), 201
 
+# Route to remove a movie from favorites
+@app.route('/remove_favorite', methods=['POST'])
+@login_required
+def remove_favorite():
+    data = request.json
+    movie_id = data.get('movie_id')
+
+    if movie_id:
+        # Find the favorite entry for the current user and given movie_id
+        favorite = Favorite.query.filter_by(movie_id=str(movie_id), user_id=current_user.id).first()
+        if favorite:
+            db.session.delete(favorite)
+            db.session.commit()
+            return jsonify({"success": True, "message": "Movie removed from favorites"})
+        else:
+            return jsonify({"error": "Favorite movie not found"}), 404
+    return jsonify({"error": "Movie ID is required"}), 400
 
 # Function to send a confirmation email
 def send_confirmation_email(email):
@@ -235,7 +304,6 @@ def is_logged_in():
     if current_user.is_authenticated:
         return jsonify({'is_logged_in': True, 'username': current_user.username})
     return jsonify({'is_logged_in': False})
-
 
 # Run the Flask application
 if __name__ == '__main__':

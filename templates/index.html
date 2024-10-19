@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="/static/style.css">
     <title>Movie App</title>
 </head>
@@ -10,10 +11,22 @@
     <header>
         <!-- User Authentication Section -->
         <div id="auth-container" class="auth-container">
+            <!-- Login and Signup buttons -->
             <button id="login-btn" class="auth-btn">Login</button>
             <button id="signup-btn" class="auth-btn">Join</button>
+            
+            <!-- Dropdown menu for logged-in user -->
+            <span id="user-name" class="auth-btn green-btn" style="display: none;">Username</span>
+            <button id="logout-btn" class="auth-btn" style="display: none;">Logout</button>
+            
+            <!-- Dropdown menu for favorites -->
+            <div id="user-menu" class="dropdown-menu" style="display: none;">
+                <ul>
+                    
+                </ul>
+            </div>
         </div>
-
+        
         <h1>Azrai's TMDB API Full Stack Project</h1>
 
         <!-- Container for centering the search bar -->
@@ -30,6 +43,12 @@
         <div id="categories-container" class="categories-container"></div>
     </header>
     
+    <!-- Favorites Title -->
+    <div id="favorites-title-container" style="display: none;">
+        <h1 class="favorites-title">My Favorites</h1>
+    </div>
+
+
     <main id="main"></main>
 
     <div class="pagination">
@@ -40,9 +59,7 @@
 
     <!-- Flash messages (Success or Error) -->
     <div id="flash-wrapper" style="display:none;">
-        <div id="flash-messages">
-            Logout successful
-        </div>
+        <div id="flash-messages"></div>
     </div>
 
     <!-- Login Modal -->
@@ -54,11 +71,9 @@
                 <div style="position: relative;">
                     <input type="text" id="login-username" name="username" placeholder="User name" required>
                 </div>
-
                 <div style="position: relative;">
                     <input type="password" id="login-password" name="password" placeholder="Password" required>
                 </div>
-
                 <button type="submit">Log In</button>
             </form>
         </div>
@@ -73,32 +88,27 @@
                 <div style="position: relative;">
                     <input type="text" id="signup-username" name="username" placeholder="User name" required>
                 </div>
-
                 <div style="position: relative;">
                     <input type="email" id="signup-email" name="email" placeholder="Email" required>
                 </div>
-
                 <div style="position: relative;">
                     <input type="password" id="signup-password" name="password" placeholder="Password" required>
                 </div>
-
                 <div style="position: relative;">
                     <input type="password" id="signup-password-confirm" name="password-confirm" placeholder="Retype password" required>
                 </div>
-
                 <div class="validation">
                     <span>• Lowercase & uppercase</span>
                     <span>• Number (0-9)</span>
                     <span>• Special Characters (#@!$%^&*)</span>
                     <span>• At least 8 characters</span>
                 </div>
-                
                 <button type="submit">Sign Up</button>
             </form>
         </div>
     </div>
 
-    <!-- Script for handling the form submissions and showing flash messages -->
+    <!-- Script for handling the form submissions, user interactions and showing flash messages -->
     <script src="/static/app.js"></script>
 </body>
 </html>
