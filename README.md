@@ -38,7 +38,7 @@ A comprehensive full-stack web application for movie enthusiasts to browse, sear
 ## 🛠 Tech Stack
 - **Frontend**: HTML, CSS, JavaScript
 - **Backend**: Python, Flask
-- **Database**: MongoDB
+- **Database**: Postgres
 - **Authentication**: JSON Web Tokens (JWT)
 - **API**: External API integration (such as The Movie Database API)
 
